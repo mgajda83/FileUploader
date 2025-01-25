@@ -1,0 +1,20 @@
+﻿@using System.Security.Principal
+
+
+<ul class="navbar-nav">
+@if (User.Identity.IsAuthenticated)
+{
+        <li class="nav-item">
+            <span class="navbar-text text-dark">@ViewData["Welcome"] @User.Claims.Where(c => c.Type == "name").FirstOrDefault().Value!</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignOut">@ViewData["SignOut"]</a>
+        </li>
+}
+else
+{
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="AzureAD" asp-controller="Account" asp-action="SignIn">@ViewData["SignIn"]</a>
+        </li>
+}
+</ul>
