@@ -1,4 +1,5 @@
-﻿using Azure.Storage;
+﻿using Azure.Identity;
+using Azure.Storage;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using FileUploader.Models;
@@ -29,6 +30,7 @@ namespace FileUploader.Helpers
         public static async Task<bool> UploadFileToStorage(Stream fileStream, string fileName,
                                                             AzureStorageConfig _storageConfig)
         {
+            /* AccountKey
             // Create a URI to the blob
             Uri blobUri = new Uri("https://" +
                                   _storageConfig.AccountName +
@@ -46,6 +48,21 @@ namespace FileUploader.Helpers
 
             // Upload the file
             await blobClient.UploadAsync(fileStream);
+            */
+
+            // Construct the blob container endpoint from the arguments.
+            Uri blobUri = new Uri(string.Format("https://{0}.blob.core.windows.net/{1}",
+                                                _storageConfig.AccountName,
+                                                _storageConfig.ImageContainer));
+
+            // Get a credential and create a client object for the blob container.
+            BlobContainerClient blobClient = new BlobContainerClient(blobUri,new DefaultAzureCredential());
+    
+            // Create the container if it does not exist.
+            await blobClient.CreateIfNotExistsAsync();
+            
+            // Upload the file
+            await blobClient.UploadBlobAsync(fileName, fileStream);
 
             return await Task.FromResult(true);
         }

@@ -33,7 +33,8 @@ namespace FileUploader.Controllers
                 if (files.Count == 0)
                     return BadRequest("No files received from the upload");
 
-                if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+                //if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+                if (storageConfig.AccountName == string.Empty)
                     return BadRequest("sorry, can't retrieve your azure storage details from appsettings.js, make sure that you add azure storage details there");
 
                 if (storageConfig.ImageContainer == string.Empty)
@@ -79,7 +80,8 @@ namespace FileUploader.Controllers
         {
             try
             {
-                if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+                //if (storageConfig.AccountKey == string.Empty || storageConfig.AccountName == string.Empty)
+                if (storageConfig.AccountName == string.Empty)
                     return BadRequest("Sorry, can't retrieve your Azure storage details from appsettings.js, make sure that you add Azure storage details there.");
 
                 if (storageConfig.ImageContainer == string.Empty)
