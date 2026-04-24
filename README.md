@@ -5,4 +5,4 @@ File Uploader project allow to upload images to Azure Storage account via simple
 The design, compared to the original sources, includes minor modifications used in private projects.
 
 ## App Permissions
-For security reasons, App Services must authenticate with the Storage Account using Managed Identity. This requires granting Storage Account permissions at the Storage Blob Data Contributor level.
+For security reasons, App Services must authenticate with the Storage Account using Managed Identity. This requires granting Storage Account permissions at the Storage Blob Data Contributor level for App Services identity.
